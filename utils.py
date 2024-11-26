@@ -1,3 +1,4 @@
+import os
 import re
 from nltk.tokenize import sent_tokenize, word_tokenize
 import string
@@ -58,3 +59,33 @@ def analyze_text(tekst):
     print(f"Number of sentences: {len(sentences)}")
     print(f"Number of words: {total_words}")
     print(f"Total syllables: {total_syllables}")
+
+
+def main():
+    """
+    Main function to analyze all `.txt` files in the `/data` directory.
+    
+    Iterate through all text files in the `/data` directory, read their content, and perform the text analysis for each file.
+    """
+
+    # Define the directory containing the text files
+    data_dir = "./data"
+    
+    # Get a list of all `.txt` files in the directory
+    text_files = [file for file in os.listdir(data_dir) if file.endswith(".txt")]
+    
+    # Process each text file
+    for file in text_files:
+        file_path = os.path.join(data_dir, file)
+        
+        # Read the content of the file
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        # Analyze the text
+        print(file)
+        analyze_text(content)
+        print()
+
+if __name__ == "__main__":
+    main()
