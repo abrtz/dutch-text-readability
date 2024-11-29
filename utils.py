@@ -10,7 +10,7 @@ def count_syllables(word):
     Parameters:
     word (str): The word for which syllables are to be counted.
     
-    Returns:
+    Return:
     int: The number of syllables in the word.
     """
     
@@ -30,13 +30,11 @@ def analyze_text(tekst):
     
     Parameters:
     tekst (str): The text to analyze.
-    
-    Returns:
-    None: Prints the analysis results.
     """
 
     # Tokenize the text into sentences
     sentences = sent_tokenize(tekst, language='dutch')
+    total_sentences = len(sentences)
     
     # Tokenize each sentence into words
     words = [
@@ -56,9 +54,51 @@ def analyze_text(tekst):
     total_syllables = sum(sum(sentence) for sentence in syllable_counts)
     
     # Output the results
-    print(f"Number of sentences: {len(sentences)}")
+    print(f"Number of sentences: {total_sentences}")
     print(f"Number of words: {total_words}")
     print(f"Total syllables: {total_syllables}")
+
+    return total_sentences, total_words, total_syllables
+
+def readability_formula(total_sentences,total_words, total_syllabels):
+    """
+    Calculate the Flesch-Douma readability score and determine the target education level based on the result.
+
+    Parameters:
+    total_sentences (int): The total number of sentences in the text.
+    total_words (int): The total number of words in the text.
+    total_syllabels (int): The total number of syllables in the text.
+
+    Return:
+    None.
+    Print the calculated readability score and the corresponding target education level.
+    """
+
+    formula = 206.835-(0.93*(total_words/total_sentences))-(77*(total_syllabels/total_words))
+    #keep only two decimals in final outcome
+    formula = round(formula, 2)
+
+
+    if formula <= 30:
+        education_level = "academic/professional"
+    elif formula > 30 and formula <= 50:
+        education_level = "university student"
+    elif formula > 50 and formula <= 60:
+        education_level = "college advanced secondary education"
+    elif formula > 60 and formula <= 70:
+        education_level = "secondary school (first years)"
+    elif formula > 70 and formula <= 80:
+        education_level = "6th grade primary school (groep 8)"
+    elif formula > 80 and formula <= 90:
+        education_level = "5th grade primary school (groep 7)"
+    elif formula > 90 and formula <= 100:
+        education_level = "4th grade primary school (groep 6)"
+    
+
+    print(f"Flesh-Douma readability formula: {formula}")
+
+    print(f"Target public: {education_level}")
+ 
 
 
 def main():
@@ -84,7 +124,10 @@ def main():
         
         # Analyze the text
         print(file)
-        analyze_text(content)
+        sentences, total_words, total_syllables = analyze_text(content)
+        print()
+        readability_formula(sentences, total_words, total_syllables)
+        print()
         print()
 
 if __name__ == "__main__":
