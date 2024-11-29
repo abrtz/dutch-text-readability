@@ -9,9 +9,9 @@ The sociologist Flesh(1949) introduced a readability formula for English texts t
 NB do not use this formula for something important since not many factors or variables are taken into account. It is a really basic formula.
 
 ## Running the Script:
-1. Navigate to the directory containing `utils.py` in your terminal or command prompt.
+1. Navigate to the directory containing `readability_formula.py` in your terminal or command prompt.
 2. Run the script:
-`python utils.py`
+`python readability_formula.py`
 3. The script will process each .txt file in the `/data` directory and output the analysis to the terminal.
 
 ## Authors
