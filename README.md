@@ -13,3 +13,7 @@ NB do not use this formula for something important since not many factors or var
 2. Run the script:
 `python utils.py`
 3. The script will process each .txt file in the `/data` directory and output the analysis to the terminal.
+
+## Authors
+Ariana Britez \
+Sjef van Lier
